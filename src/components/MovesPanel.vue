@@ -10,7 +10,6 @@
       </template>
       <br>
       
-      
       <b-card no-body class="mb-1">
         <b-card-header header-tag="header" class="p-1" role="tab">
             <b-button @click="startGame(); ">Start a Game</b-button> 
@@ -45,9 +44,12 @@
             </b-card-body>
         </b-collapse>
 
-      </b-card>
-
-      
+      </b-card>      
+    
+      <div v-if="nodeenvDEV">
+        <b-form-textarea  id="textarea-small" size="sm" placeholder="Small textarea" v-model="debugMove"></b-form-textarea>
+          <b-button @click="sendmove()">Go</b-button>
+      </div>
     </div>
 </template>
 
@@ -62,13 +64,14 @@ export default {
     name: 'MovesPanel',
     data(){
         return {
-          //  rules: 'dupa jasiu'
+          debugMove:''
         }
 
     },
     computed: {
         ...mapGetters(['isGameOver', 'isWaiting' ]),
         moves(){ return this.$store.state.lastClick},        
+        nodeenvDEV() {return process.env.NODE_ENV  ==='development'}
     },
     methods:{
         startGame(){
@@ -76,7 +79,14 @@ export default {
         },
         compStartGame(){
             this.$store.commit('computerStartFresh');
+        },
+        sendmove(){
+         //   console.log('sendmove!');
+         //   console.log( this.debugMove.replace(/[%20]/g," ").split('') );
+            this.$store.board = this.debugMove.replace(/%20/g," ");
+            this.$store.dispatch('sendMyMove', this.debugMove.replace(/%20/g," ").split('') );            
         }
+
     }
 }
 </script>

@@ -71,8 +71,7 @@ let checkStore = {
         },
         computerStartFresh(state){
             this.commit('startFresh');            
-            this.dispatch('sendMyMove', [store.state.board]);          
-            
+            this.dispatch('sendMyMove', store.state.board);            
         },
         cellClick(state, i) {
             if (state.lockBoard)
@@ -102,7 +101,7 @@ let checkStore = {
                                     elementM[0][ state.lastClick[0]-1 ] = cNONE
                                     elementM[0][ state.lastClick[1]-1 ] = cWHITE
                                 }
-                                this.dispatch('sendMyMove', elementM );
+                                this.dispatch('sendMyMove', elementM[0] );
                             }
                         return true;
                     }           
@@ -119,8 +118,8 @@ let checkStore = {
             //context.commit('mutationName')
             //st = this
             store.state.lockBoard = true;                                                
-            store.state.board = payload[0]
-            axios.get('http://ec2-35-176-108-247.eu-west-2.compute.amazonaws.com/xxx/board/'+payload[0].join('')+'/?format=json')            
+            store.state.board = payload
+            axios.get('http://ec2-35-176-108-247.eu-west-2.compute.amazonaws.com/xxx/board/'+payload.join('')+'/?format=json')            
             .then(response => {
               if (response.data === 'game over'){
                 store.state.moves = []

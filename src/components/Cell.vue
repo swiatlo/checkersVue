@@ -1,6 +1,6 @@
 <template>             
         <b-button block squared class="cellbutton" :class="{'moveDone': isClicked(mynum) }" @click="cellClicked" >            
-            <!--div class="overlay" style="margin-left:5%">{{mynum}}</div-->
+            <div class="overlay" style="margin-left:5%">{{mynum}}</div>
                    
             <div :class="[circleC, isEmpty(mynum) ? playerNoneCL : isWhite(mynum ) ? player1CL : player2CL]"></div>
             
@@ -93,6 +93,7 @@ export default {
         z-index: 2;          
         border-radius: 30%;
         color: rgb(156, 157, 157);         
+        font-size: 2.2vmin 
     }    
 
     .crossV {
