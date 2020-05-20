@@ -119,7 +119,7 @@ let checkStore = {
             //st = this
             store.state.lockBoard = true;                                                
             store.state.board = payload
-            axios.get('http://ec2-35-176-108-247.eu-west-2.compute.amazonaws.com/xxx/board/'+payload.join('')+'/?format=json')            
+            axios.get('http://ec2-3-10-235-117.eu-west-2.compute.amazonaws.com/xxx/board/'+payload.join('')+'/?format=json')  
             .then(response => {
               if (response.data === 'game over'){
                 store.state.moves = []
